@@ -1,29 +1,39 @@
 let btn = document.getElementById("btn");
 
 function calculateAll() {
+    //Getting all input values
     const inputs = document.querySelectorAll("input");
+    
+    //spliting the income and expenses into two arrays
     const income = Array.from(inputs).slice(0,12).map(incom => {return incom.value;});
     const expenses = Array.from(inputs).slice(12,24).map(expens => {return expens.value;});
-    console.log(income)
-    console.log(expenses)
+
+
+    //calculating the saved money by subtracting expenses[i] from income[i]
+    const resultArray = [];
+
+    for (let i = 0; i < income.length; i++) {
+        let remainign = income[i] - expenses[i];
+        resultArray.push(remainign);
+    }
+
+    //Getting all paragrafs in the saved monet per month table
+    const result = document.querySelectorAll("p");
+    
+    //appying the saved money to paragrafs
+    for (let i = 0; i < result.length; i++) {
+        const element = result[i];
+        element.innerHTML = resultArray[i];
+    }
+    
+    //calcutaing the sum of the saved money
+    let sum = 0;
+    for (let i = 0; i < resultArray.length; i++) {
+        const element = resultArray[i];
+        sum += element;
+    }
+    //displaying the total amount
+    const totalSaved = document.getElementById("totalMoneySaved");
+    totalSaved.innerHTML = sum; 
 }
 
-function calculateJanuary() {
-    let incomeJanuary = document.getElementById("incomeJanuary");
-    let expensesJanuary = document.getElementById("expensesJanuary");
-    let savedJanuary = document.getElementById("savedJanuary")
-    let one = incomeJanuary.value;
-    let two = expensesJanuary.value;
-    let result = one - two;
-
-    savedJanuary.innerHTML = result;
-}
-
-function calculateFeburary() {
-    let incomeFeburary = document.getElementById("incomeFebruary");
-    let expensesFeburary = document.getElementById("expensesFebruary");
-    let savedFebruary = document.getElementById("savedFebruary");
-
-    let result = incomeFeburary.value - expensesFeburary.value;
-    savedFebruary.innerHTML = result;
-}
